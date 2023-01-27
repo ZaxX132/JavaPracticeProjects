@@ -1,0 +1,4 @@
+admin,admin
+ZaxX132,asdasd
+Richard,123456
+Tamtous,123456

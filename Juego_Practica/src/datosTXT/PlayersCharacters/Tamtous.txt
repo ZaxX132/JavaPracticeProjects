@@ -1,0 +1,3 @@
+Tamtous,1,Adri,Warrior,1,0
+Tamtous,2,Franco,Warrior,1,0
+Tamtous,3,puta,Rogue,1,0

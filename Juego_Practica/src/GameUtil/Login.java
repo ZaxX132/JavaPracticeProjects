@@ -9,7 +9,7 @@ public class Login {
      * Está función sirve para solicitarle al jugador su usuario y contraseña.
      * El jugador tiene en total 3 intentos, una vez la cantidad de intentos llegue a 0 se retornará un usuario vacío.
      * Se cargará la lista de jugadores para realizar la comparación de inicio de sesión.
-     * @return retornará al jugador con el cual se inició sesión o si se acabaron los intentos retornará un jugador con valores vacíos.
+     * @return retornará un objeto Player al jugador con el cual se inició sesión o si se acabaron los intentos retornará un jugador con valores vacíos.
      * */
     public static Player login(){
         ArrayList<Player> playerList;
@@ -36,11 +36,10 @@ public class Login {
         return plLogin;
     }
     /**
-     * Está función sirve para solicitarle al jugador la creación de un nuevo usuario.
+     * Está función sirve para solicitarle al jugador la creación de un nuevo usuario, lo que creará un nuevo objeto Player.
      * Para lo cual se le pedirá escribir el user name que desee y se buscará si aún no existe.
      * Si el user name no está registrado entonces le pedirá que ingrese la contraseña
      * Si todo ocurre con normalidad, se creará al nuevo usuario.
-     * @return retornará una lista con los datos de los usuarios creados.
      * */
     public static void createPlayer(){
         String respuesta="";

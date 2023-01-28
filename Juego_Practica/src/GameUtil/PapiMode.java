@@ -9,6 +9,8 @@ public class PapiMode {
      * Esta función sirve para mostrar la interfaz de texto del modo PAPI
      * en el que se mostrarán las siguientes opciones
      * Salir del modo papi, ver usuarios creados, eliminar usuario y modificar usuario
+     *
+     * Los usuarios tienen su información almacenada en txt en la carpeta datosTXT que tienen los datos de un objeto Player
      */
     public static void papimodeUI(){
         ArrayList<Player> playerList;

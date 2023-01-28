@@ -5,6 +5,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class StartGame {
 
+    /**
+     * Está función es el menú principal del juego cuando ya se tiene un usuario que haya iniciado sesión.
+     * Además la información de los personajes jugables se guardaran en la carpeta PlayersCharacters y tendrán como nombre "nombredeUsuario" + ".txt".
+     * Se permite empezar la partida, eligiendo a un personaje jugable y también se permite crear un nuevo personaje jugable.
+     * También se puede salir del programa desde aquí.
+     * Las opciones momentaneamente no sirven.
+     * @param player Este parámetro está pensado para que se use con un objeto Player el cual será retornado por el metodo Login del juego.
+     *               El objeto Player tendrá almacenado a los personajes jugables así como los datos del usuario que haya iniciado sesión.
+     */
     public static void startGameMenu(Player player){
         String respuesta;
         int estado=0;
@@ -52,6 +61,11 @@ public class StartGame {
         }
 
     }
+
+    /**
+     * Está función es un flujo que el usuario usará para poder crear nuevos personajes jugables, lo que le pedirá los datos necesarios para la creación de uno.
+     * @param player Es el objeto Player recibido en el metodo principal, para poder guardar en el txt los datos del nuevo personaje jugable
+     */
     public static void createPlCharacter(Player player){
         Scanner sc=new Scanner(System.in);
         String nombre="";
@@ -136,6 +150,11 @@ public class StartGame {
         }
         PlayableCharacterControler.newCharacter(player.getUser(),nombre,Class,1);
     }
+
+    /**
+     * La función startGame tendrá el objetivo de ser el juego ya iniciado, por lo que el usuario habrá tenido previamente que escoger un personaje jugable.
+     * @param chPlayable Es el personaje jugable que el usuario escogió para iniciar la aventura de prueba
+     */
     public static void startGame(ChPlayable chPlayable){
         ChHostile hostile=new ChHostile("1","Pikachu","Rogue",1,70);
         System.out.println("Esta es la historia de: " + chPlayable.getName());
@@ -147,6 +166,12 @@ public class StartGame {
         }
 
     }
+
+    /**
+     * Está función es un flujo que el usuario usará para poder elegir el personaje jugable para empezar la aventura de prueba.
+     * @param player Se recibe como parametro el objeto Player para poder cargar los personajes que el usuario tiene actualmente
+     * @return se retornará el personaje jugable escogido por el usuario
+     */
     public static ChPlayable selectCharacter(Player player){
 
         Scanner sc=new Scanner(System.in);
@@ -188,6 +213,14 @@ public class StartGame {
         }
         return new ChPlayable("'1","","",0,"",-1);
     }
+
+    /**
+     * La función peleaPrueba está pensada para ser un evento que haga que dos objetos Characters se enfrenten entre si.
+     * Se solicitará un objeto ChPlayable y un ChHostile
+     * @param chara Es el personaje jugable escogido para ser controlado en la pelea
+     * @param hostile Es el enemigo que el personaje jugable se va a enfrentar
+     * @return retornará al personaje jugable con un aumento de experiencia si gana y si no, simplemente se retornará sin ganar nada.
+     */
     public static ChPlayable peleaPrueba(ChPlayable chara,ChHostile hostile){
         Scanner sc=new Scanner(System.in);
         String respuesta="";
@@ -267,6 +300,13 @@ public class StartGame {
 
         return chara;
     }
+
+    /**
+     * La función hoguera servirá para que el usuario pueda ver las estadísticas del personaje jugable escogido.
+     * Además, aquí es donde se decidirá si el personaje jugable va a pelear o si decide abandonar
+     * @param chp es el personaje jugable que se ha escogido
+     * @return retorna un boolean, que significará si el usuario ha decidido pelear o abandonar
+     */
     public static boolean hoguera(ChPlayable chp){
         String respuesta="";
         Boolean estado=true;

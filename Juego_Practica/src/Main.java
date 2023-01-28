@@ -1,7 +1,4 @@
-import Controler.PlayableCharacterControler;
-import Models.*;
-import java.util.ArrayList;
-import Controler.PlayerControler;
+import GameUtil.Functionality.StartGame;
 import Models.*;
 import GameUtil.*;
 public class Main {

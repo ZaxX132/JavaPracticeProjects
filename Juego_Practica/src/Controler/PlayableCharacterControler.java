@@ -131,6 +131,7 @@ public class PlayableCharacterControler {
                     bw.write(plch.getUser()+","+plch.getId()+
                             ","+plch.getName()+ ","+plch.getCharClass()+
                             ","+plch.getLevel()+","+plch.getExperienceBar());
+                    contador++;
                 }else{
                     bw.newLine();
                     bw.write(plch.getUser()+","+plch.getId()+

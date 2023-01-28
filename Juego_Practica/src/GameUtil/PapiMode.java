@@ -71,6 +71,7 @@ public class PapiMode {
                     for (Player pla:playerList) {
                         System.out.println(pla.getUser()+" "+ pla.getPassword());
                     }
+                    sc.nextLine();
                     estado=false;
                     break;
                 case "1":
@@ -78,6 +79,7 @@ public class PapiMode {
                     for (Player pla:playerList) {
                         System.out.println(pla.getUser());
                     }
+                    sc.nextLine();
                     estado=false;
                 default:
                     System.out.println("Por favor ingrese los datos correctos");

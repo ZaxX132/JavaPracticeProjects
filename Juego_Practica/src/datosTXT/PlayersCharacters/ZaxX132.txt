@@ -1,4 +1,4 @@
-ZaxX132,0,Papasito,Warrior,1,0
-ZaxX132,1,Rengar,Rogue,1,0
+ZaxX132,0,Papasito,Warrior,4,37
+0ZaxX132,1,Rengar,Rogue,1,0
 ZaxX132,2,Olaf,Warrior,1,0
 ZaxX132,3,Lissandra,Mage,1,0

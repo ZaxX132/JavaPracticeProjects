@@ -2,6 +2,10 @@ package GameUtil;
 import java.util.Scanner;
 import Models.*;
 public class UIMenu {
+    /**
+     * Este es el menú de entrada del juego, en este metodo se espera que el usuario inicie sesión, o en su defecto ingrese a las opciones de crear cuenta o ingresar al modo papi.
+     * @return El objetivo principal es que se retorne un objeto Player si es que el usuario logró iniciar sesión o sino retornará un objeto player vacío.
+     */
     public static Player showMenu(){
         Player startgamePlayer=new Player("","");
         String respuesta;

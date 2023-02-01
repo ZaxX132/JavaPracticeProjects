@@ -13,12 +13,8 @@ class FightM {
     public static ChPlayable peleaPrueba(ChPlayable chara, ChHostile hostile){
         Scanner sc=new Scanner(System.in);
         String respuesta="";
-        double Atackdamage=chara.getStr()*2.5;
-        double hostileAtackD=hostile.getStr()*2.5;
         double speed=chara.getAgi();
         double hostileSpeed=hostile.getAgi();
-        double armor=chara.getArmor();
-        double hostileArmor= hostile.getArmor();
         double vidaActual=chara.getHp();
         double hostileHp=hostile.getHp();
         System.out.println("Te has encontrado al enemigo: "+ hostile.getName()+" de nivel " + hostile.getLevel());
@@ -33,47 +29,13 @@ class FightM {
             switch (respuesta){
                 case "0":
                     if(speed>=hostileSpeed){
-                        hostileHp=hostileHp-Atackdamage;
-                        System.out.println("Has realizado "+ Atackdamage);
-                        sc.nextLine();
-                        if(hostileHp<=0){
-                            System.out.println("El enemigo ha sido derrotado");
-                            chara.setExperienceBar(chara.getExperienceBar()+hostile.getExperience());
-                            System.out.println("Has ganado "+hostile.getExperience()+" de experiencia");
-                            levelUp(chara);
-                            sc.nextLine();
-                            return chara;
-                        }else{
-                            vidaActual=vidaActual-hostileAtackD;
-                            System.out.println("Te han realizado "+ hostileAtackD);
-                            sc.nextLine();
-                            if(vidaActual<=0){
-                                System.out.println("Te han matado");
-                                sc.nextLine();
-                                return chara;
-                            }
-                        }
-
-                    }else if(speed<hostileSpeed){
-                        vidaActual=vidaActual-hostileAtackD;
-                        System.out.println("Te han realizado "+ hostileAtackD);
-                        sc.nextLine();
-                        if(vidaActual<=0){
-                            System.out.println("Te han matado");
-                            return chara;
-                        }else{
-                            hostileHp=hostileHp-Atackdamage;
-                            System.out.println("Has realizado "+ Atackdamage);
-                            sc.nextLine();
-                            if(hostileHp<=0){
-                                System.out.println("El enemigo ha sido derrotado");
-                                chara.setExperienceBar(chara.getExperienceBar()+hostile.getExperience());
-                                System.out.println("Has ganado "+hostile.getExperience()+" de experiencia");
-                                levelUp(chara);
-                                sc.nextLine();
-                                return chara;
-                            }
-                        }
+                        hostileHp=cNormalAtk(chara,hostile,hostileHp);
+                        if(hostileHp<=0){break;}
+                        vidaActual=enemyAction(chara,hostile,vidaActual);
+                    }else{
+                        vidaActual=enemyAction(chara,hostile,vidaActual);
+                        if(vidaActual<=0){break;}
+                        hostileHp=cNormalAtk(chara,hostile,hostileHp);
                     }
                     break;
                 case "1":
@@ -84,15 +46,34 @@ class FightM {
                     break;
                 default:
                     System.out.println("Por favor ingrese una opción correcta");
+                    break;
+            }
+
+            if(hostileHp<=0){
+                enemyDefeated(chara,hostile);
+                return chara;
+            }
+            if(vidaActual<=0){
+                System.out.println("Te han matado");
+                sc.nextLine();
+                return chara;
             }
         }
     }
-    public static void levelUp(ChPlayable chp){
+    public static void enemyDefeated(ChPlayable chp, ChHostile hostile){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("El enemigo ha sido derrotado");
+        levelUp(chp,hostile);
+    }
+    public static void levelUp(ChPlayable chp, ChHostile hostile){
         Scanner sc=new Scanner(System.in);
         int baseExpBar=100;
+        chp.setExperienceBar(chp.getExperienceBar()+hostile.getExperience());
         if((chp.getLevel()*baseExpBar)<=chp.getExperienceBar()){
             chp.setLevel(chp.getLevel()+1);
             chp.setExperienceBar(chp.getExperienceBar()-((chp.getLevel()-1)*baseExpBar));
+            System.out.println("Has ganado: " + hostile.getExperience()+" exp");
+            sc.nextLine();
             System.out.println("Has subido de nivel!");
             sc.nextLine();
             System.out.println("Tu nivel actual es: Lvl"+ chp.getLevel());
@@ -100,10 +81,30 @@ class FightM {
             System.out.println("Tu experiencia actual es: exp"+chp.getExperienceBar());
             sc.nextLine();
             System.out.println("Para el siguiente nivel necesitarás: "+(chp.getLevel()*baseExpBar)+" de experiencia");
-            sc.nextLine();
+        }else{
+            System.out.println("Haz ganado: " + hostile.getExperience()+" exp");
+            System.out.println("Tu experiencia actual es: "+chp.getExperienceBar()+ " exp");
         }
+        sc.nextLine();
     }
-    public static void normalAtack(){
-
+    public static double cNormalAtk(ChPlayable chp,ChHostile chh,double actualHHp){
+        Scanner sc=new Scanner(System.in);
+        double atackDamage=chp.getStr()*2.5;
+        double hArmor=chh.getArmor();
+        double damageDealt=atackDamage;
+        actualHHp=actualHHp-damageDealt;
+        System.out.println("Haz realizado " +atackDamage+" de daño");
+        sc.nextLine();
+        return actualHHp;
+    }
+    public static double enemyAction(ChPlayable chp,ChHostile chh,double actualCHp){
+        Scanner sc=new Scanner(System.in);
+        double hAtackDamage=chh.getStr()*2.5;
+        double cArmor=chp.getArmor();
+        double damageDealt=hAtackDamage;
+        actualCHp=actualCHp-damageDealt;
+        System.out.println("Te han realizado "+ damageDealt);
+        sc.nextLine();
+        return actualCHp;
     }
 }

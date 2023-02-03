@@ -1,6 +1,8 @@
 package GameUtil.Functionality;
 import Models.ChHostile;
 import Models.ChPlayable;
+import Models.Hability;
+
 import java.util.Scanner;
 class FightM {
     /**
@@ -13,14 +15,18 @@ class FightM {
     public static ChPlayable peleaPrueba(ChPlayable chara, ChHostile hostile){
         Scanner sc=new Scanner(System.in);
         String respuesta="";
+        Hability habi=new Hability("0");
+        Hability habib=new Hability("0");
         double speed=chara.getAgi();
         double hostileSpeed=hostile.getAgi();
         double vidaActual=chara.getHp();
         double hostileHp=hostile.getHp();
+        int mana=chara.getMana();
         System.out.println("Te has encontrado al enemigo: "+ hostile.getName()+" de nivel " + hostile.getLevel());
         while(true){
+            habi=habib;
             System.out.println("Hp: "+ vidaActual);
-            System.out.println("Mana: "+ chara.getMana());
+            System.out.println("Mana: "+ mana);
             System.out.println("Enemy Hp: "+ hostileHp);
             System.out.println("0. Atacar");
             System.out.println("1. Habilidades");
@@ -39,7 +45,20 @@ class FightM {
                     }
                     break;
                 case "1":
-                    System.out.println("No tienes habilidades");
+                    habi=HabilitiesM.selectHability(chara,mana);
+                    if(habi.getId().equals("0")){
+                        break;
+                    }
+                    if(speed>=hostileSpeed){
+                        hostileHp= hostileHp - HabilitiesM.useHability(habi,chara,hostile);
+                        if(hostileHp<=0){break;}
+                        vidaActual=enemyAction(chara,hostile,vidaActual);
+                    }else{
+                        vidaActual=enemyAction(chara,hostile,vidaActual);
+                        if(vidaActual<=0){break;}
+                        hostileHp= hostileHp - HabilitiesM.useHability(habi,chara,hostile);
+                    }
+
                     break;
                 case "2":
                     System.out.println("No tienes objetos");
@@ -61,8 +80,7 @@ class FightM {
         }
     }
     public static void enemyDefeated(ChPlayable chp, ChHostile hostile){
-        Scanner sc=new Scanner(System.in);
-        System.out.println("El enemigo ha sido derrotado");
+        System.out.println("El enemigo "+hostile.getName() +" ha sido derrotado");
         levelUp(chp,hostile);
     }
     public static void levelUp(ChPlayable chp, ChHostile hostile){
@@ -107,4 +125,5 @@ class FightM {
         sc.nextLine();
         return actualCHp;
     }
+
 }

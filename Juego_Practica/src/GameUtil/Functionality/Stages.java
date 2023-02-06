@@ -2,7 +2,9 @@ package GameUtil.Functionality;
 
 import Models.ChHostile;
 import Models.ChPlayable;
+import Models.Hability;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Stages {
@@ -11,15 +13,54 @@ class Stages {
      * @param chPlayable Es el personaje jugable que el usuario escogió para iniciar la aventura de prueba
      */
     public static void startGame(ChPlayable chPlayable){
-        ChHostile hostile=new ChHostile("1","Pikachu","Rogue",1,70);
-        System.out.println("Esta es la historia de: " + chPlayable.getName());
-        System.out.println("Un "+ chPlayable.getCharClass() + " que realizará una pelea de exibición para probar el funcionamiento del juego");
-        if(hoguera(chPlayable)){
-            FightM.peleaPrueba(chPlayable,hostile);
+        Hability habi = new Hability("1","Golpe devastador","Realizas un golpe usando todas tus fuerzas, gasta mucho mana pero tiene mucho daño. Escala con fuerza.",
+                1,1,0,"str","","fire",100);
+        Hability habi2 = new Hability("1","Corte limpio","Apuntas a partes vitales, teniendo posibilidades de causar sangrado. En niveles altos causa mucho daño. Escala con agilidad."
+                ,1,1,0,"agi","","blood",100);
+        Hability habi3 = new Hability("1","Golpe de fuego","Es de fuego y quema"
+                ,1,1,0,"str","","frozen",100);
+        Hability habi4 = new Hability("1","Corte limpio","Apuntas a partes vitales, teniendo posibilidades de causar sangrado. En niveles altos causa mucho daño. Escala con agilidad."
+                ,1,1,0,"agi","","stun",100);
+        Scanner sc=new Scanner(System.in);
+        while(true){
 
-        }else{
-            System.out.println("Has preferido abandonar la partida");
+            System.out.println("Esta es la historia de: " + chPlayable.getName());
+            sc.nextLine();
+            System.out.println("Un "+ chPlayable.getCharClass() + " que realizará una pelea de exibición para probar el funcionamiento del juego");
+            sc.nextLine();
+            System.out.println("Maestro sin nombre: Estimado inútil, si no te ayudo te matarán, así que te enseñaré algo");
+            //switch (chPlayable.getCharClass()){
+            //    case "Warrior":
+            //        ArrayList<Hability> hablist=new ArrayList<Hability>();
+            //        hablist.add(HabilitiesM.learnHability(habi,habi2));
+            //        chPlayable.setHabilities(hablist);
+            //    case "Rogue":
+            //    case "Mage":
+            //}
+            ArrayList<Hability> hablist=new ArrayList<Hability>();
+            hablist.add(habi);
+            hablist.add(habi2);
+            hablist.add(habi3);
+            hablist.add(habi4);
+chPlayable.setHabilities(hablist);
+            ChHostile hostile=new ChHostile("1","Pikachu","Rogue",1,70);
+            if(hoguera(chPlayable)){
+                FightM.peleaPrueba(chPlayable,hostile);
+            }else{
+                System.out.println("Has preferido abandonar la partida");
+                break;
+            }
+            System.out.println("Esta es la segunda pelea de prueba de: " + chPlayable.getName());
+            System.out.println("Un "+ chPlayable.getCharClass() + " que probará otra pelea interesante");
+            hostile=new ChHostile("1","Jin Kazama","Warrior",3,210);
+            if(hoguera(chPlayable)){
+                FightM.peleaPrueba(chPlayable,hostile);
+            }else{
+                System.out.println("Has preferido abandonar la partida");
+                break;
+            }
         }
+
 
     }
     /**

@@ -10,8 +10,26 @@ public class Character {
     private double inte;
     private double hp;
     private double armor;
-    private double mana;
+    private int mana;
     private ArrayList<Hability> habilities;
+    private String status;
+    private int statusTurn;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getStatusTurn() {
+        return statusTurn;
+    }
+
+    public void setStatusTurn(int statusTurn) {
+        this.statusTurn = statusTurn;
+    }
 
     public Character(String id, String name, String charClass, int level) {
         this.id = id;
@@ -78,7 +96,6 @@ public class Character {
     public void setStr(double str) {
         this.str = str;
     }
-
     public double getAgi() {
         agi=5;
         switch (getCharClass()){
@@ -151,7 +168,7 @@ public class Character {
         this.armor = armor;
     }
 
-    public double getMana() {
+    public int getMana() {
         mana=100;
         switch (getCharClass()){
             case "Warrior":
@@ -165,7 +182,7 @@ public class Character {
         }
     }
 
-    public void setMana(double mana) {
+    public void setMana(int mana) {
         this.mana = mana;
     }
 

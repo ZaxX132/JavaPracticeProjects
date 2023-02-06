@@ -13,8 +13,14 @@ class Stages {
      * @param chPlayable Es el personaje jugable que el usuario escogió para iniciar la aventura de prueba
      */
     public static void startGame(ChPlayable chPlayable){
-        Hability habi = new Hability("1","Golpe devastador","Realizas un golpe usando todas tus fuerzas, gasta mucho mana pero tiene mucho daño. Escala con fuerza.",50,30,3,"str","","",0.0);
-        Hability habi2 = new Hability("1","Corte limpio","Apuntas a partes vitales, teniendo posibilidades de causar sangrado. En niveles altos causa mucho daño. Escala con agilidad.",20,10,6,"agi","","blood",0.2);
+        Hability habi = new Hability("1","Golpe devastador","Realizas un golpe usando todas tus fuerzas, gasta mucho mana pero tiene mucho daño. Escala con fuerza.",
+                1,1,0,"str","","fire",100);
+        Hability habi2 = new Hability("1","Corte limpio","Apuntas a partes vitales, teniendo posibilidades de causar sangrado. En niveles altos causa mucho daño. Escala con agilidad."
+                ,1,1,0,"agi","","blood",100);
+        Hability habi3 = new Hability("1","Golpe de fuego","Es de fuego y quema"
+                ,1,1,0,"str","","frozen",100);
+        Hability habi4 = new Hability("1","Corte limpio","Apuntas a partes vitales, teniendo posibilidades de causar sangrado. En niveles altos causa mucho daño. Escala con agilidad."
+                ,1,1,0,"agi","","stun",100);
         Scanner sc=new Scanner(System.in);
         while(true){
 
@@ -23,15 +29,20 @@ class Stages {
             System.out.println("Un "+ chPlayable.getCharClass() + " que realizará una pelea de exibición para probar el funcionamiento del juego");
             sc.nextLine();
             System.out.println("Maestro sin nombre: Estimado inútil, si no te ayudo te matarán, así que te enseñaré algo");
-            switch (chPlayable.getCharClass()){
-                case "Warrior":
-                    ArrayList<Hability> hablist=new ArrayList<Hability>();
-                    hablist.add(HabilitiesM.learnHability(habi,habi2));
-                    chPlayable.setHabilities(hablist);
-                case "Rogue":
-                case "Mage":
-            }
-
+            //switch (chPlayable.getCharClass()){
+            //    case "Warrior":
+            //        ArrayList<Hability> hablist=new ArrayList<Hability>();
+            //        hablist.add(HabilitiesM.learnHability(habi,habi2));
+            //        chPlayable.setHabilities(hablist);
+            //    case "Rogue":
+            //    case "Mage":
+            //}
+            ArrayList<Hability> hablist=new ArrayList<Hability>();
+            hablist.add(habi);
+            hablist.add(habi2);
+            hablist.add(habi3);
+            hablist.add(habi4);
+chPlayable.setHabilities(hablist);
             ChHostile hostile=new ChHostile("1","Pikachu","Rogue",1,70);
             if(hoguera(chPlayable)){
                 FightM.peleaPrueba(chPlayable,hostile);

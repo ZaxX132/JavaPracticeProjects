@@ -2,24 +2,27 @@ package GameUtil.Functionality;
 import Models.ChHostile;
 import Models.ChPlayable;
 import Models.Hability;
-
+import java.util.Random;
 import java.util.Scanner;
 public class HabilitiesM {
     public static Hability selectHability(ChPlayable chp,int mana){
         Hability habi= new Hability("0");
         Scanner sc=new Scanner(System.in);
         int options=1;
+        int contarOptions=1;
         int select;
         while (true){
             System.out.println("===============");
             System.out.println("Selección de habilidades");
             System.out.println("===============");
             for (Hability hab:chp.getHabilities()) {
-                System.out.println(options+". "+hab.getName()+ "mana: "+ hab.getManaUse());
-                options++;
+                System.out.println(contarOptions+". "+hab.getName()+ "mana: "+ hab.getManaUse());
+                contarOptions++;
             }
             System.out.println("0. Salir de selección");
             System.out.println("===============");
+            options=contarOptions;
+            contarOptions=1;
             try{
                 select=Integer.parseInt(sc.nextLine());
                 if(select<=options && select>=0){
@@ -44,7 +47,8 @@ public class HabilitiesM {
             }
         }
     }
-    public static double useHability(Hability hab,ChPlayable chp, ChHostile chh){
+    public static double useHabilityDamage(Hability hab,ChPlayable chp, ChHostile chh){
+        Random rn=new Random();
         Scanner sc=new Scanner(System.in);
         double totalDamage;
         double prob=hab.getProbEffect();
@@ -64,23 +68,25 @@ public class HabilitiesM {
                 totalDamage = hab.getBaseDamage();
                 break;
         }
-        double acierto=(Math.random()*range)+min;
+        System.out.println("Haz usado la habilidad "+ hab.getName());
+        System.out.println("Haz realizado "+ totalDamage);
+        double acierto=(rn.nextInt(100));
         if (acierto<=prob){
             switch (hab.getEffect()){
                 case "fire":
-                    System.out.println(chh.getName()+" se ha quemado");
+                    statusEffectsM.hAddStatusburned(chh);
                     break;
                 case "blood":
-                    System.out.println(chh.getName()+" está sangrando");
+                    statusEffectsM.hAddStatusBleeding(chh);
                     break;
                 case "stun":
-                    System.out.println(chh.getName()+ " está noqueado");
+                    statusEffectsM.hAddStatusStunned(chh);
+                    break;
+                case "frozen":
+                    statusEffectsM.hAddStatusFrozen(chh);
                     break;
             }
         }
-
-        System.out.println("Haz usado la habilidad "+ hab.getName());
-        System.out.println("Haz realizado "+ totalDamage);
         sc.nextLine();
         return totalDamage;
     }
@@ -106,5 +112,7 @@ public class HabilitiesM {
         }
 
     }
-
+    public static int manaUse(Hability hab){
+        return hab.getManaUse();
+    }
 }

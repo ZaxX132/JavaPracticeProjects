@@ -12,6 +12,24 @@ public class Character {
     private double armor;
     private int mana;
     private ArrayList<Hability> habilities;
+    private String status;
+    private int statusTurn;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getStatusTurn() {
+        return statusTurn;
+    }
+
+    public void setStatusTurn(int statusTurn) {
+        this.statusTurn = statusTurn;
+    }
 
     public Character(String id, String name, String charClass, int level) {
         this.id = id;
